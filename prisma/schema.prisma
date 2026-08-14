@@ -1,0 +1,215 @@
+// Prisma schema for the Godwin Capital Deal Pipeline CRM
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum DealStage {
+  INTRO_TEASER
+  NDA_INITIAL_REVIEW
+  IOI_SUBMITTED
+  MANAGEMENT_MEETING
+  LOI_TERM_SHEET
+  CONFIRMATORY_DILIGENCE
+  CLOSED
+}
+
+enum DealStatus {
+  ACTIVE
+  ON_HOLD
+  DEAD
+  EXECUTED
+}
+
+enum DealType {
+  EQUITY_CO_INVEST
+  MINORITY_EQUITY
+  CONTROL_BUYOUT
+  DEBT
+}
+
+enum SourceType {
+  SPONSOR
+  INVESTMENT_BANK
+  FIRM_CONNECTION
+  PROPRIETARY
+  OTHER
+}
+
+enum ActivityType {
+  NOTE
+  CALL
+  EMAIL
+  MEETING
+  STAGE_CHANGE
+  STATUS_CHANGE
+  SYSTEM
+}
+
+// ---------------------------------------------------------------------------
+// Core models
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  initials     String   @unique
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(MEMBER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  dealsAsPrimaryOwner   Deal[]     @relation("PrimaryOwner")
+  dealsAsSecondaryOwner Deal[]     @relation("SecondaryOwner")
+  activities            Activity[]
+  tasksAssigned         Task[]     @relation("TaskAssignee")
+  tasksCreated          Task[]     @relation("TaskCreator")
+
+  @@map("users")
+}
+
+model Source {
+  id        String     @id @default(cuid())
+  name      String
+  type      SourceType @default(OTHER)
+  website   String?
+  notes     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  deals    Deal[]
+  contacts Contact[]
+
+  @@unique([name, type])
+  @@map("sources")
+}
+
+model Contact {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  title       String?
+  company     String?
+  linkedinUrl String?
+  notes       String?
+  sourceId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  source Source? @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  deals  Deal[]  @relation("PrimaryContact")
+
+  @@map("contacts")
+}
+
+model PassReasonTag {
+  id    String @id @default(cuid())
+  label String @unique
+
+  deals DealPassReasonTag[]
+
+  @@map("pass_reason_tags")
+}
+
+model DealPassReasonTag {
+  dealId String
+  tagId  String
+
+  deal Deal          @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  tag  PassReasonTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([dealId, tagId])
+  @@map("deal_pass_reason_tags")
+}
+
+model Deal {
+  id                String     @id @default(cuid())
+  projectName       String?
+  companyName       String?
+  hq                String?
+  description       String?
+  website           String?
+  stage             DealStage  @default(INTRO_TEASER)
+  status            DealStatus @default(ACTIVE)
+  sourceId          String?
+  referralType      SourceType?
+  primaryContactId  String?
+  type              DealType?
+  dateReceived      DateTime   @default(now())
+  primaryIndustry   String?
+  secondaryIndustry String?
+  enterpriseValue   Float?
+  revenue           Float?
+  ebitda            Float?
+  nextStep          String?
+  primaryOwnerId    String?
+  secondaryOwnerId  String?
+  reasonForPass     String?
+  closedAt          DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  source         Source?             @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  primaryContact Contact?            @relation("PrimaryContact", fields: [primaryContactId], references: [id], onDelete: SetNull)
+  primaryOwner   User?               @relation("PrimaryOwner", fields: [primaryOwnerId], references: [id], onDelete: SetNull)
+  secondaryOwner User?               @relation("SecondaryOwner", fields: [secondaryOwnerId], references: [id], onDelete: SetNull)
+  passReasonTags DealPassReasonTag[]
+  activities     Activity[]
+  tasks          Task[]
+
+  @@index([stage])
+  @@index([status])
+  @@index([sourceId])
+  @@index([dateReceived])
+  @@map("deals")
+}
+
+model Activity {
+  id        String       @id @default(cuid())
+  dealId    String
+  type      ActivityType @default(NOTE)
+  content   String
+  authorId  String?
+  createdAt DateTime     @default(now())
+
+  deal   Deal  @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  author User? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([dealId])
+  @@map("activities")
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  dealId      String
+  title       String
+  dueDate     DateTime?
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  assigneeId  String?
+  creatorId   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  deal     Deal  @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  assignee User? @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  creator  User? @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: SetNull)
+
+  @@index([dealId])
+  @@map("tasks")
+}
