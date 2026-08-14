@@ -66,12 +66,12 @@ export function KanbanBoard({ deals }: { deals: KanbanDeal[] }) {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className={`flex w-72 shrink-0 flex-col rounded-2xl border border-slate-800 bg-slate-900/40 p-3 transition ${
+                  className={`flex w-72 shrink-0 flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-3 transition ${
                     snapshot.isDraggingOver ? "ring-1 ring-emerald-500/50" : ""
                   }`}
                 >
                   <div className="mb-3 flex items-center justify-between px-1">
-                    <h3 className="text-sm font-semibold text-slate-200">{STAGE_SHORT_LABELS[stage]}</h3>
+                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{STAGE_SHORT_LABELS[stage]}</h3>
                     <span className="text-xs text-slate-500">{items.length}</span>
                   </div>
                   <p className="mb-3 px-1 text-xs text-slate-500">{formatMoney(totalEv)} total EV</p>
@@ -84,18 +84,18 @@ export function KanbanBoard({ deals }: { deals: KanbanDeal[] }) {
                             ref={dragProvided.innerRef}
                             {...dragProvided.draggableProps}
                             {...dragProvided.dragHandleProps}
-                            className={`block rounded-xl border border-slate-800 bg-slate-900 p-3 text-sm shadow-sm transition hover:border-slate-700 ${
+                            className={`block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 text-sm shadow-sm transition hover:border-slate-300 dark:hover:border-slate-700 ${
                               dragSnapshot.isDragging ? "rotate-1 shadow-lg" : ""
                             }`}
                           >
-                            <p className="font-medium text-slate-100">{dealDisplayName(deal)}</p>
+                            <p className="font-medium text-slate-900 dark:text-slate-100">{dealDisplayName(deal)}</p>
                             <p className="mt-1 text-xs text-slate-500">{deal.primaryIndustry ?? "—"}</p>
                             <div className="mt-2 flex items-center justify-between">
-                              <span className="text-xs font-medium text-slate-400">
+                              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
                                 {formatMoney(deal.enterpriseValue)}
                               </span>
                               {deal.primaryOwner && (
-                                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 text-[10px] font-semibold text-white">
+                                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-300 dark:bg-slate-700 text-[10px] font-semibold text-slate-900 dark:text-white">
                                   {deal.primaryOwner.initials}
                                 </span>
                               )}

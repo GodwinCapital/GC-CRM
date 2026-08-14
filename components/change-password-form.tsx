@@ -21,8 +21,8 @@ export function ChangePasswordForm() {
       <Field label="New Password" htmlFor="newPassword">
         <input id="newPassword" name="newPassword" type="password" required className={inputClass} />
       </Field>
-      {state?.error && <p className="text-sm text-red-400">{state.error}</p>}
-      {state?.success && <p className="text-sm text-emerald-400">{state.success}</p>}
+      {state?.error && <p className="text-sm text-red-600 dark:text-red-400">{state.error}</p>}
+      {state?.success && <p className="text-sm text-emerald-600 dark:text-emerald-400">{state.success}</p>}
       <Button type="submit" disabled={pending} variant="secondary">
         {pending ? "Updating..." : "Update Password"}
       </Button>

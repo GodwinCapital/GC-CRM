@@ -20,8 +20,8 @@ export default async function SettingsPage() {
       <PageHeader title="Settings" description="Manage your account, team, and pipeline configuration." />
 
       <Card>
-        <h2 className="mb-3 text-sm font-semibold text-white">My Account</h2>
-        <p className="mb-4 text-sm text-slate-400">
+        <h2 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">My Account</h2>
+        <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
           Signed in as {session?.user.name} ({session?.user.email})
         </p>
         <ChangePasswordForm />
@@ -29,9 +29,9 @@ export default async function SettingsPage() {
 
       <Card>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-white">Data Import</h2>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Data Import</h2>
         </div>
-        <p className="mb-3 text-sm text-slate-400">
+        <p className="mb-3 text-sm text-slate-500 dark:text-slate-400">
           Bulk-import or update deals from an Excel export matching the firm&apos;s deal pipeline format.
         </p>
         <LinkButton href="/settings/import" variant="secondary">
@@ -41,17 +41,17 @@ export default async function SettingsPage() {
 
       {isAdmin && (
         <Card>
-          <h2 className="mb-3 text-sm font-semibold text-white">Team</h2>
+          <h2 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Team</h2>
           <div className="mb-4 space-y-2">
             {users.map((u) => {
               const boundDelete = deleteUserAction.bind(null, u.id);
               return (
                 <div
                   key={u.id}
-                  className="flex items-center justify-between rounded-lg border border-slate-800 px-3 py-2"
+                  className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-2"
                 >
                   <div>
-                    <p className="text-sm font-medium text-slate-200">
+                    <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
                       {u.name} <span className="text-slate-500">({u.initials})</span>
                     </p>
                     <p className="text-xs text-slate-500">
@@ -60,7 +60,7 @@ export default async function SettingsPage() {
                   </div>
                   {u.id !== session?.user.id && (
                     <form action={boundDelete}>
-                      <button type="submit" className="text-slate-600 hover:text-red-400" aria-label="Remove user">
+                      <button type="submit" className="text-slate-400 dark:text-slate-600 hover:text-red-600 dark:hover:text-red-400" aria-label="Remove user">
                         <Trash2 size={15} />
                       </button>
                     </form>
@@ -70,7 +70,7 @@ export default async function SettingsPage() {
             })}
           </div>
 
-          <form action={createUserAction} className="grid grid-cols-1 gap-3 border-t border-slate-800 pt-4 sm:grid-cols-2">
+          <form action={createUserAction} className="grid grid-cols-1 gap-3 border-t border-slate-200 dark:border-slate-800 pt-4 sm:grid-cols-2">
             <Field label="Name" htmlFor="name">
               <input id="name" name="name" required className={inputClass} />
             </Field>
@@ -99,7 +99,7 @@ export default async function SettingsPage() {
       )}
 
       <Card>
-        <h2 className="mb-1 text-sm font-semibold text-white">Pass Reason Tags</h2>
+        <h2 className="mb-1 text-sm font-semibold text-slate-900 dark:text-white">Pass Reason Tags</h2>
         <p className="mb-3 text-xs text-slate-500">
           Tags used to categorize why deals were passed on, for the dashboard analytics.
         </p>
@@ -110,7 +110,7 @@ export default async function SettingsPage() {
               <form key={t.id} action={boundDelete}>
                 <button
                   type="submit"
-                  className="group flex items-center gap-1.5 rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs text-slate-300 hover:border-red-500/50 hover:text-red-400"
+                  className="group flex items-center gap-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-1 text-xs text-slate-600 dark:text-slate-300 hover:border-red-500/50 hover:text-red-600 dark:hover:text-red-400"
                 >
                   {t.label}
                   <Trash2 size={11} className="opacity-0 group-hover:opacity-100" />
@@ -127,7 +127,7 @@ export default async function SettingsPage() {
         </form>
       </Card>
 
-      <p className="text-center text-xs text-slate-600">
+      <p className="text-center text-xs text-slate-400 dark:text-slate-600">
         Need to see your data raw? Try <Link href="/api/deals/export" className="underline">exporting all deals to CSV</Link>.
       </p>
     </div>

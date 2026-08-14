@@ -111,7 +111,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
 
           {deal.status === "DEAD" && (
             <Card>
-              <h2 className="mb-1 text-sm font-semibold text-white">Pass Reason Tags</h2>
+              <h2 className="mb-1 text-sm font-semibold text-slate-900 dark:text-white">Pass Reason Tags</h2>
               <p className="mb-3 text-xs text-slate-500">
                 Tag why we passed so it shows up in the dashboard analytics.
               </p>
@@ -120,7 +120,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
                   {tags.map((tag) => (
                     <label
                       key={tag.id}
-                      className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-700 bg-slate-950 px-3 py-1.5 text-xs text-slate-300 has-checked:border-emerald-500 has-checked:bg-emerald-500/10 has-checked:text-emerald-400"
+                      className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 has-checked:border-emerald-500 has-checked:bg-emerald-500/10 has-checked:text-emerald-700 dark:has-checked:text-emerald-400"
                     >
                       <input
                         type="checkbox"
@@ -141,7 +141,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
           )}
 
           <Card>
-            <h2 className="mb-3 text-sm font-semibold text-white">Activity Timeline</h2>
+            <h2 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Activity Timeline</h2>
             <form action={boundAddActivity} className="mb-5 space-y-2">
               <textarea
                 name="content"
@@ -170,11 +170,11 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
                 const Icon = ACTIVITY_ICON[a.type];
                 return (
                   <div key={a.id} className="flex gap-3">
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-400">
+                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                       <Icon size={14} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="whitespace-pre-wrap text-sm text-slate-200">{a.content}</p>
+                      <p className="whitespace-pre-wrap text-sm text-slate-800 dark:text-slate-200">{a.content}</p>
                       <p className="mt-0.5 text-xs text-slate-500">
                         {a.author?.name ?? "System"} · {formatDate(a.createdAt)}
                       </p>
@@ -188,7 +188,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
 
         <div className="space-y-6">
           <Card>
-            <h2 className="mb-3 text-sm font-semibold text-white">Tasks / Next Steps</h2>
+            <h2 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Tasks / Next Steps</h2>
             <form action={boundAddTask} className="mb-4 space-y-2">
               <input name="title" required placeholder="Task title" className={inputClass} />
               <div className="flex gap-2">
@@ -215,7 +215,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
                 return (
                   <div
                     key={t.id}
-                    className="flex items-start justify-between gap-2 rounded-lg border border-slate-800 px-3 py-2"
+                    className="flex items-start justify-between gap-2 rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-2"
                   >
                     <div className="flex items-start gap-2">
                       <form action={toggle}>
@@ -228,7 +228,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
                         />
                       </form>
                       <div>
-                        <p className={`text-sm ${t.completed ? "text-slate-500 line-through" : "text-slate-200"}`}>
+                        <p className={`text-sm ${t.completed ? "text-slate-500 line-through" : "text-slate-800 dark:text-slate-200"}`}>
                           {t.title}
                         </p>
                         <p className="text-xs text-slate-500">
@@ -238,7 +238,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
                       </div>
                     </div>
                     <form action={remove}>
-                      <button type="submit" className="text-slate-600 hover:text-red-400" aria-label="Delete task">
+                      <button type="submit" className="text-slate-400 dark:text-slate-600 hover:text-red-600 dark:hover:text-red-400" aria-label="Delete task">
                         <Trash2 size={14} />
                       </button>
                     </form>
@@ -250,8 +250,8 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
 
           {deal.source && (
             <Card>
-              <h2 className="mb-2 text-sm font-semibold text-white">Source</h2>
-              <p className="text-sm text-slate-200">{deal.source.name}</p>
+              <h2 className="mb-2 text-sm font-semibold text-slate-900 dark:text-white">Source</h2>
+              <p className="text-sm text-slate-800 dark:text-slate-200">{deal.source.name}</p>
               <p className="text-xs text-slate-500">{SOURCE_TYPE_LABELS[deal.source.type]}</p>
             </Card>
           )}

@@ -27,6 +27,8 @@ exports at any time.
   name) instead of duplicating them.
 - **Authentication** — email/password login (NextAuth), admin vs. member
   roles, per-user accounts for the deal team.
+- **Light/dark mode** — a toggle in the sidebar switches themes instantly and
+  remembers the choice (falls back to the system preference on first visit).
 
 ## Tech stack
 

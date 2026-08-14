@@ -325,7 +325,7 @@ export function DealForm({
         </Field>
       )}
 
-      <div className="flex justify-end gap-2 border-t border-slate-800 pt-4">
+      <div className="flex justify-end gap-2 border-t border-slate-200 dark:border-slate-800 pt-4">
         <Button type="submit">{submitLabel}</Button>
       </div>
     </form>

@@ -37,7 +37,7 @@ export default async function ContactsPage({
           name="q"
           defaultValue={q ?? ""}
           placeholder="Search contacts..."
-          className="w-72 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+          className="w-72 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-emerald-500"
         />
       </form>
 
@@ -46,7 +46,7 @@ export default async function ContactsPage({
       ) : (
         <Card className="!p-0 overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-900/60">
+            <thead className="bg-slate-50 dark:bg-slate-900/60">
               <tr className="text-left text-xs uppercase tracking-wide text-slate-500">
                 <th className="px-4 py-3 font-medium">Name</th>
                 <th className="px-4 py-3 font-medium">Title / Company</th>
@@ -58,21 +58,21 @@ export default async function ContactsPage({
             </thead>
             <tbody>
               {contacts.map((c) => (
-                <tr key={c.id} className="border-t border-slate-800 hover:bg-slate-900/40">
+                <tr key={c.id} className="border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/40">
                   <td className="px-4 py-3">
-                    <Link href={`/contacts/${c.id}`} className="font-medium text-slate-200 hover:text-emerald-400">
+                    <Link href={`/contacts/${c.id}`} className="font-medium text-slate-800 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400">
                       {c.name}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-slate-300">
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
                     {[c.title, c.company].filter(Boolean).join(" · ") || "—"}
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{c.email ?? "—"}</td>
-                  <td className="px-4 py-3 text-slate-300">{c.phone ?? "—"}</td>
-                  <td className="px-4 py-3 text-slate-300">
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{c.email ?? "—"}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{c.phone ?? "—"}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
                     {c.source ? `${c.source.name} (${SOURCE_TYPE_LABELS[c.source.type]})` : "—"}
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{c._count.deals}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{c._count.deals}</td>
                 </tr>
               ))}
             </tbody>

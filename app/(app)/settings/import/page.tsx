@@ -19,21 +19,21 @@ export default async function ImportPage({
       <PageHeader title="Import from Excel" description="Bulk-load or refresh deals from a spreadsheet export." />
 
       {error && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-950 px-4 py-3 text-sm text-red-400">
+        <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-950 px-4 py-3 text-sm text-red-600 dark:text-red-400">
           <AlertCircle size={16} /> {error}
         </div>
       )}
       {hasResult && !error && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg bg-emerald-950 px-4 py-3 text-sm text-emerald-400">
+        <div className="mb-4 flex items-center gap-2 rounded-lg bg-emerald-50 dark:bg-emerald-950 px-4 py-3 text-sm text-emerald-600 dark:text-emerald-400">
           <CheckCircle2 size={16} />
           {created} created, {updated} updated, {skipped} skipped.
         </div>
       )}
 
       <Card>
-        <h2 className="mb-2 text-sm font-semibold text-white">Upload a file</h2>
-        <p className="mb-4 text-sm text-slate-400">
-          Accepts <code className="rounded bg-slate-800 px-1 py-0.5">.xlsx</code> files with a table
+        <h2 className="mb-2 text-sm font-semibold text-slate-900 dark:text-white">Upload a file</h2>
+        <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
+          Accepts <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 py-0.5">.xlsx</code> files with a table
           containing at least <strong>Company Name</strong> and <strong>Stage</strong> columns,
           matching the firm&apos;s deal pipeline export format (Project Name, Company Name, HQ,
           Description, Website, Stage, Status, Source / Referral, Referral Type, Primary Contact,
@@ -48,7 +48,7 @@ export default async function ImportPage({
             name="file"
             accept=".xlsx,.xls"
             required
-            className="block w-full text-sm text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-500 file:px-3 file:py-2 file:text-sm file:font-medium file:text-slate-950 hover:file:bg-emerald-400"
+            className="block w-full text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-500 file:px-3 file:py-2 file:text-sm file:font-medium file:text-slate-950 hover:file:bg-emerald-400"
           />
           <Button type="submit">Upload &amp; Import</Button>
         </form>

@@ -13,7 +13,7 @@ export function Card({
   return (
     <div
       className={clsx(
-        "rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-sm",
+        "rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/60",
         className
       )}
     >
@@ -34,8 +34,10 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-semibold text-white">{title}</h1>
-        {description && <p className="mt-1 text-sm text-slate-400">{description}</p>}
+        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">{title}</h1>
+        {description && (
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>
+        )}
       </div>
       {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>
@@ -56,9 +58,10 @@ export function Button({
         "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60",
         variant === "primary" && "bg-emerald-500 text-slate-950 hover:bg-emerald-400",
         variant === "secondary" &&
-          "border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800",
+          "border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
         variant === "danger" && "bg-red-500/90 text-white hover:bg-red-500",
-        variant === "ghost" && "text-slate-400 hover:bg-slate-800 hover:text-slate-100",
+        variant === "ghost" &&
+          "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100",
         className
       )}
       {...props}
@@ -86,8 +89,9 @@ export function LinkButton({
         "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition",
         variant === "primary" && "bg-emerald-500 text-slate-950 hover:bg-emerald-400",
         variant === "secondary" &&
-          "border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800",
-        variant === "ghost" && "text-slate-400 hover:bg-slate-800 hover:text-slate-100",
+          "border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
+        variant === "ghost" &&
+          "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100",
         className
       )}
     >
@@ -97,10 +101,10 @@ export function LinkButton({
 }
 
 const STATUS_COLORS: Record<DealStatus, string> = {
-  ACTIVE: "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30",
-  ON_HOLD: "bg-amber-500/10 text-amber-400 ring-amber-500/30",
-  DEAD: "bg-red-500/10 text-red-400 ring-red-500/30",
-  EXECUTED: "bg-sky-500/10 text-sky-400 ring-sky-500/30",
+  ACTIVE: "bg-emerald-500/10 text-emerald-700 ring-emerald-600/20 dark:text-emerald-400 dark:ring-emerald-500/30",
+  ON_HOLD: "bg-amber-500/10 text-amber-700 ring-amber-600/20 dark:text-amber-400 dark:ring-amber-500/30",
+  DEAD: "bg-red-500/10 text-red-700 ring-red-600/20 dark:text-red-400 dark:ring-red-500/30",
+  EXECUTED: "bg-sky-500/10 text-sky-700 ring-sky-600/20 dark:text-sky-400 dark:ring-sky-500/30",
 };
 
 export function StatusBadge({ status }: { status: DealStatus }) {
@@ -118,16 +122,16 @@ export function StatusBadge({ status }: { status: DealStatus }) {
 
 export function StageBadge({ stage }: { stage: DealStage }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium text-slate-300 ring-1 ring-inset ring-slate-700">
+    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">
       {STAGE_SHORT_LABELS[stage]}
     </span>
   );
 }
 
 export function TypeBadge({ type }: { type: DealType | null }) {
-  if (!type) return <span className="text-slate-600">—</span>;
+  if (!type) return <span className="text-slate-400 dark:text-slate-600">—</span>;
   return (
-    <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-300 ring-1 ring-inset ring-indigo-500/30">
+    <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:text-indigo-300 dark:ring-indigo-500/30">
       {TYPE_LABELS[type]}
     </span>
   );
@@ -135,7 +139,7 @@ export function TypeBadge({ type }: { type: DealType | null }) {
 
 export function SourceTypeBadge({ type }: { type: SourceType }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium text-slate-300 ring-1 ring-inset ring-slate-700">
+    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">
       {SOURCE_TYPE_LABELS[type]}
     </span>
   );
@@ -143,9 +147,11 @@ export function SourceTypeBadge({ type }: { type: SourceType }) {
 
 export function EmptyState({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 py-16 text-center">
-      <p className="text-sm font-medium text-slate-300">{title}</p>
-      {description && <p className="mt-1 max-w-sm text-sm text-slate-500">{description}</p>}
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 py-16 text-center dark:border-slate-800">
+      <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{title}</p>
+      {description && (
+        <p className="mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-500">{description}</p>
+      )}
     </div>
   );
 }
@@ -162,7 +168,7 @@ export function StatTile({
   return (
     <Card>
       <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-white">{value}</p>
+      <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">{value}</p>
       {sub && <p className="mt-1 text-xs text-slate-500">{sub}</p>}
     </Card>
   );
@@ -181,7 +187,7 @@ export function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={htmlFor} className="mb-1 block text-sm font-medium text-slate-300">
+      <label htmlFor={htmlFor} className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
         {label}
       </label>
       {children}
@@ -190,6 +196,6 @@ export function Field({
 }
 
 export const inputClass =
-  "w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500 disabled:opacity-50";
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-emerald-500 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:placeholder-slate-500";
 export const selectClass = inputClass;
 export const textareaClass = clsx(inputClass, "min-h-[90px] resize-y");

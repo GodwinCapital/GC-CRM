@@ -50,7 +50,7 @@ export function DealDetailPanel({
     return (
       <Card>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-white">Edit Deal</h2>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Edit Deal</h2>
           <Button variant="ghost" onClick={() => setEditing(false)}>
             Cancel
           </Button>
@@ -83,7 +83,7 @@ export function DealDetailPanel({
         </Button>
       </div>
 
-      {deal.description && <p className="mb-4 text-sm text-slate-300">{deal.description}</p>}
+      {deal.description && <p className="mb-4 text-sm text-slate-600 dark:text-slate-300">{deal.description}</p>}
 
       <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
         <Info label="Headquarters" value={deal.hq} />
@@ -129,7 +129,7 @@ function Info({
   return (
     <div className={className}>
       <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</dt>
-      <dd className="mt-0.5 text-slate-200">{value || "—"}</dd>
+      <dd className="mt-0.5 text-slate-800 dark:text-slate-200">{value || "—"}</dd>
     </div>
   );
 }

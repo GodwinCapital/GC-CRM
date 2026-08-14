@@ -37,7 +37,7 @@ export function SourceForm({
       <Field label="Notes" htmlFor="notes">
         <textarea id="notes" name="notes" defaultValue={initial?.notes ?? ""} className={textareaClass} />
       </Field>
-      <div className="flex justify-end border-t border-slate-800 pt-4">
+      <div className="flex justify-end border-t border-slate-200 dark:border-slate-800 pt-4">
         <Button type="submit">{submitLabel}</Button>
       </div>
     </form>

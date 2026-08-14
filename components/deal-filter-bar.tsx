@@ -118,7 +118,7 @@ export function DealFilterBar({
       {searchParams.toString() && (
         <button
           onClick={() => router.push(pathname)}
-          className="text-sm text-slate-400 hover:text-slate-200"
+          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
         >
           Clear filters
         </button>

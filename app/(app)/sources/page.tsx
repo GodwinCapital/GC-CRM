@@ -36,7 +36,7 @@ export default async function SourcesPage() {
       ) : (
         <Card className="!p-0 overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-900/60">
+            <thead className="bg-slate-50 dark:bg-slate-900/60">
               <tr className="text-left text-xs uppercase tracking-wide text-slate-500">
                 <th className="px-4 py-3 font-medium">Source</th>
                 <th className="px-4 py-3 font-medium">Type</th>
@@ -49,18 +49,18 @@ export default async function SourcesPage() {
             </thead>
             <tbody>
               {ranked.map((s) => (
-                <tr key={s.id} className="border-t border-slate-800 hover:bg-slate-900/40">
+                <tr key={s.id} className="border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/40">
                   <td className="px-4 py-3">
-                    <Link href={`/sources/${s.id}`} className="font-medium text-slate-200 hover:text-emerald-400">
+                    <Link href={`/sources/${s.id}`} className="font-medium text-slate-800 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400">
                       {s.name}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{SOURCE_TYPE_LABELS[s.type]}</td>
-                  <td className="px-4 py-3 text-slate-300">{s._count.deals}</td>
-                  <td className="px-4 py-3 text-slate-300">{formatMoney(s.ev)}</td>
-                  <td className="px-4 py-3 text-slate-300">{s.executed}</td>
-                  <td className="px-4 py-3 text-slate-300">{formatPercent(s.winRate)}</td>
-                  <td className="px-4 py-3 text-slate-300">{s._count.contacts}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{SOURCE_TYPE_LABELS[s.type]}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{s._count.deals}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{formatMoney(s.ev)}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{s.executed}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{formatPercent(s.winRate)}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{s._count.contacts}</td>
                 </tr>
               ))}
             </tbody>

@@ -42,7 +42,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-sm font-semibold text-white">Deals ({contact.deals.length})</h2>
+        <h2 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">Deals ({contact.deals.length})</h2>
         {contact.deals.length === 0 ? (
           <p className="text-sm text-slate-500">No deals linked to this contact yet.</p>
         ) : (
@@ -51,13 +51,13 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
               <Link
                 key={d.id}
                 href={`/deals/${d.id}`}
-                className="flex items-center justify-between rounded-lg border border-slate-800 px-3 py-2 hover:bg-slate-900/40"
+                className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-900/40"
               >
-                <span className="font-medium text-slate-200">{dealDisplayName(d)}</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200">{dealDisplayName(d)}</span>
                 <div className="flex items-center gap-2">
                   <StageBadge stage={d.stage} />
                   <StatusBadge status={d.status} />
-                  <span className="text-sm text-slate-400">{formatMoney(d.enterpriseValue)}</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">{formatMoney(d.enterpriseValue)}</span>
                 </div>
               </Link>
             ))}
